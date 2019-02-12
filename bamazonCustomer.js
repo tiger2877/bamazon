@@ -42,7 +42,7 @@ function start() {
     "SELECT * FROM products", function(err, res) {
     console.log("Welcome to Bamazon" + "\n" + "====================================================");
     for ( var i = 0; i < res.length; i++) {
-      console.log("ID: " + res[i].id + " || " + "Product: " + res[i].product_name + " || " + "Price: $" + res[i].price);
+      console.log("ID: " + res[i].item_id + " || " + "Product: " + res[i].product_name + " || " + "Price: $" + res[i].price);
     }
     console.log("---------------------------------------------------");
 
@@ -72,7 +72,7 @@ function start() {
         [{
           stock_quantity: (res[custProduct].stock_quantity - orderQuantity)
         },{
-          id: answer.id
+          item_id: answer.id
         }], 
         function(err, res){
           if(err) throw err;

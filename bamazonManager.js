@@ -76,7 +76,7 @@ function productSearch() {
       // Log all results of the SELECT statement
       console.log("PRODUCTS FOR SALE" + "\n" + "====================================================");
       for (var i = 0; i < res.length; i++) {
-        console.log("ID: " + res[i].id + " || " + "Product: " + res[i].product_name + " || " + "Price: $" + res[i].price + " || " + "Quantity: " + res[i].stock_quantity);
+        console.log("ID: " + res[i].item_id + " || " + "Product: " + res[i].product_name + " || " + "Price: $" + res[i].price + " || " + "Quantity: " + res[i].stock_quantity);
       }
       console.log("---------------------------------------------------");
       runSearch();
