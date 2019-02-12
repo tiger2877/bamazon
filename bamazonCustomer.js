@@ -1,3 +1,16 @@
+  /*-- bamazon customer -->
+  <!-- =========================================================== -->
+  <!-- display all of the items available for sale.                -->
+  <!-- prompt users with two messages:                             -->
+  <!-- 1. ask them the ID of the product they would like to buy    -->
+  <!-- 2. ask how many units of the product they would like to buy -->
+  <!-- check if your store has enough of the product:              --> 
+  <!-- 1. if enough, fulfill the customer's order.                 --> 
+  <!--    update product quantity basaed on the item id            --> 
+  <!-- 2. if not enough, log a phrase like Insufficient quantity!  -->
+  <!--    then prevent the order from going through                --> 
+  <!-- =========================================================== -->*/
+
 //require mysql and inquirer
 var mysql = require('mysql');
 var inquirer = require('inquirer');
@@ -37,26 +50,26 @@ function runApp() {
       {
         type: "input",
         name: "id",
-        message: "What is the ID of the product you would like to purchase?"
+        message: "What is product ID you want to buy?"
       },
       {
         type: "input",
         name: "qty",
-        message: "How many would you like to purchase?"
+        message: "How many units would you like to buy?"
       }
     ]).then(function(answer) {
       var custProduct = (answer.id) - 1;
-      var prodQuantity = parseInt(answer.qty);
-      var total = parseFloat(((res[custProduct].price) * prodQuantity).toFixed(2));
+      var orderQuantity = parseInt(answer.qty);
+      var total = parseFloat(((res[custProduct].price) * orderQuantity).toFixed(2));
       
       // Check if quantity is sufficient
-      if(res[custProduct].stock_quantity >= prodQuantity) {
+      if(res[custProduct].stock_quantity >= orderQuantity) {
       
       // After purchase, update the quantity in products
       connection.query(
         "UPDATE products SET ? WHERE ?",
         [{
-          stock_quantity: (res[custProduct].stock_quantity - prodQuantity)
+          stock_quantity: (res[custProduct].stock_quantity - orderQuantity)
         },{
           item_id: answer.id
         }], 
@@ -86,6 +99,7 @@ function reRun(){
       runApp();
     } else {
       console.log("Thanks for shopping Bamazon!");
+      connection.end();
     }
   });
 }

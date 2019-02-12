@@ -1,3 +1,12 @@
+  /*-- bamazon Manager -->
+  <!-- =========================== -->
+  <!-- List a set of menu options: -->
+  <!-- View Products for Sale      -->
+  <!-- View Low Inventory          -->
+  <!-- Add to Inventory            -->
+  <!-- Add New Product             -->
+  <!-- =========================== -->*/
+
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 
@@ -12,7 +21,7 @@ var connection = mysql.createConnection({
 
   // Your password
   password: "",
-  database: "top_songsDB"
+  database: "bamazon_DB"
 });
 
 connection.connect(function(err) {
