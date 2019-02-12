@@ -1,11 +1,11 @@
   /*-- bamazon Manager -->
-  <!-- =========================== -->
-  <!-- List a set of menu options: -->
-  <!-- View Products for Sale      -->
-  <!-- View Low Inventory          -->
-  <!-- Add to Inventory            -->
-  <!-- Add New Product             -->
-  <!-- =========================== -->*/
+  <!-- =========================================================================== -->
+  <!-- List a set of menu options:                                                 -->
+  <!-- View Products for Sale: ist every available item:                           -->
+  <!-- View Low Inventory: list all items with an inventory count lower than five  -->
+  <!-- Add to Inventory: display a prompt that will let the manager "add more"     -->
+  <!-- Add New Product:  add a completely new product to the store                 -->
+  <!-- =========================================================================== -->*/
 
 var mysql = require("mysql");
 var inquirer = require("inquirer");
@@ -36,29 +36,29 @@ function runSearch() {
       type: "list",
       message: "What would you like to do?",
       choices: [
-        "Find songs by artist",
-        "Find all artists who appear more than once",
-        "Find data within a specific range",
-        "Search for a specific song",
+        "View Products for Sale",
+        "View Low Inventory",
+        "Add to Inventory",
+        "Add New Product",
         "exit"
       ]
     })
     .then(function(answer) {
       switch (answer.action) {
-      case "Find songs by artist":
-        artistSearch();
+      case "View Products for Sale":
+        productSearch();
         break;
 
-      case "Find all artists who appear more than once":
-        multiSearch();
+      case "View Low Inventory":
+        lowInventorySearch();
         break;
 
-      case "Find data within a specific range":
-        rangeSearch();
+      case "Add to Inventory":
+        addInventory();
         break;
 
-      case "Search for a specific song":
-        songSearch();
+      case "Add New Product":
+        addNewProduct();
         break;
           
       case "exit":
@@ -68,101 +68,127 @@ function runSearch() {
     });
 }
 
-function artistSearch() {
-  inquirer
-    .prompt({
-      name: "artist",
-      type: "input",
-      message: "What artist would you like to search for?"
-    })
-    .then(function(answer) {
-      var query = "SELECT position, song, year FROM top5000 WHERE ?";
-      connection.query(query, { artist: answer.artist }, function(err, res) {
-        for (var i = 0; i < res.length; i++) {
-          console.log("Position: " + res[i].position + " || Song: " + res[i].song + " || Year: " + res[i].year);
-        }
-        runSearch();
-      });
+// show all products
+function productSearch() {
+    console.log("Selecting all products...\n");
+    connection.query("SELECT * FROM products", function(err, res) {
+      if (err) throw err;
+      // Log all results of the SELECT statement
+      console.log(res);
+      connection.end();
     });
-}
+  }
 
-function multiSearch() {
-  var query = "SELECT artist FROM top5000 GROUP BY artist HAVING count(*) > 1";
+// show low inventory products
+function lowInventorySearch() {
+  var query = "SELECT product_name FROM products GROUP BY products HAVING count(*) < 5";
   connection.query(query, function(err, res) {
     for (var i = 0; i < res.length; i++) {
-      console.log(res[i].artist);
+      console.log(res[i].product_name);
     }
     runSearch();
   });
 }
 
-function rangeSearch() {
-  inquirer
-    .prompt([
-      {
-        name: "start",
-        type: "input",
-        message: "Enter starting position: ",
-        validate: function(value) {
-          if (isNaN(value) === false) {
-            return true;
+// add inventory to the store
+function addInventory() {
+    // query the database for all products
+    connection.query("SELECT * FROM products", function(error, results) {
+      if (error) throw error;
+      // once you have the product, prompt the manager for which they'd like to add inventory to
+      inquirer
+        .prompt([
+          {
+            name: "choice",
+            type: "list",
+            choices: function() {
+              var choiceArray = [];
+              for (var i = 0; i < results.length; i++) {
+                choiceArray.push(results[i].product_name);
+              }
+              return choiceArray;
+            },
+            message: "What product would you like to add inventory to?"
+          },
+          {
+            name: "amt",
+            type: "input",
+            message: "How much would you like to add?"
           }
-          return false;
-        }
-      },
-      {
-        name: "end",
-        type: "input",
-        message: "Enter ending position: ",
-        validate: function(value) {
-          if (isNaN(value) === false) {
-            return true;
+        ])
+        .then(function(answer) {
+          // get the information of the chosen item
+          var chosenItem;
+          for (var i = 0; i < results.length; i++) {
+            if (results[i].product_name === answer.choice) {
+              chosenItem = results[i].stock_quantity;
+            }
           }
-          return false;
-        }
-      }
-    ])
-    .then(function(answer) {
-      var query = "SELECT position,song,artist,year FROM top5000 WHERE position BETWEEN ? AND ?";
-      connection.query(query, [answer.start, answer.end], function(err, res) {
-        for (var i = 0; i < res.length; i++) {
-          console.log(
-            "Position: " +
-              res[i].position +
-              " || Song: " +
-              res[i].song +
-              " || Artist: " +
-              res[i].artist +
-              " || Year: " +
-              res[i].year
+          connection.query(
+            "UPDATE products SET ? WHERE ?",
+            [
+              {
+                stock_quantity: chosenItem + parseInt(answer.amt)
+              },
+              {
+                product_name: answer.choice
+              }
+            ],
+            function(error) {
+              if (error) throw err;
+              console.log("---------------------------------------------------");
+              console.log("Inventory updated successfully!");
+              console.log("---------------------------------------------------");
+              runSearch();
+            }
           );
-        }
-        runSearch();
-      });
+        });
     });
-}
-
-function songSearch() {
-  inquirer
-    .prompt({
-      name: "song",
-      type: "input",
-      message: "What song would you like to look for?"
-    })
-    .then(function(answer) {
-      console.log(answer.song);
-      connection.query("SELECT * FROM top5000 WHERE ?", { song: answer.song }, function(err, res) {
-        console.log(
-          "Position: " +
-            res[0].position +
-            " || Song: " +
-            res[0].song +
-            " || Artist: " +
-            res[0].artist +
-            " || Year: " +
-            res[0].year
-        );
-        runSearch();
-      });
-    });
-}
+  }
+  
+//add new product to the store
+function addNewProduct() {
+    // prompt for info about the item to be added to the store
+    inquirer
+      .prompt([
+        {
+            name: "item",
+            type: "input",
+            message: "What is the item you would like to add to the store?"    
+          },
+          {
+            name: "department",
+            type: "input",
+            message: "What department would you like to place your new item in?"    
+          },
+          {
+            name: "price",
+            type: "input",
+            message: "How much would you like to sell this item for?"
+          },
+          {
+            name: "quantity",
+            type: "input",
+            message: "How many would you like to store?"
+          }
+        ])  
+        .then(function(answer) {
+            // when finished prompting, insert a new item into the db with that info
+            connection.query(
+              "INSERT INTO products SET ?",
+              {
+                product_name: answer.item,
+                dept_name: answer.department,
+                price: answer.price,
+                stock_quantity: answer.quantity
+              },
+              function(err) {
+                if (err) throw err;
+                console.log("Your new item was added successfully!");
+                
+              }
+            );
+          });
+      }
+      
+  

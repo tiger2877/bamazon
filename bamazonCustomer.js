@@ -33,11 +33,11 @@ connection.connect(function(err) {
   if (err) throw err;
 
   // Function to start the app
-  runApp();
+  start();
 });
 
 // function which lists all the products and prompts for a purchase
-function runApp() {
+function start() {
   connection.query(
     "SELECT * FROM products", function(err, res) {
     console.log("Welcome to Bamazon" + "\n" + "====================================================");
@@ -57,19 +57,20 @@ function runApp() {
         name: "qty",
         message: "How many units would you like to buy?"
       }
-    ]).then(function(answer) {
+    ])
+    .then(function(answer) {
       var custProduct = (answer.id) - 1;
-      var orderQuantity = parseInt(answer.qty);
-      var total = parseFloat(((res[custProduct].price) * orderQuantity).toFixed(2));
+      var prodQuantity = parseInt(answer.qty);
+      var total = parseFloat(((res[custProduct].price) * prodQuantity).toFixed(2));
       
       // Check if quantity is sufficient
-      if(res[custProduct].stock_quantity >= orderQuantity) {
+      if(res[custProduct].stock_quantity >= prodQuantity) {
       
       // After purchase, update the quantity in products
       connection.query(
         "UPDATE products SET ? WHERE ?",
         [{
-          stock_quantity: (res[custProduct].stock_quantity - orderQuantity)
+          stock_quantity: (res[custProduct].stock_quantity - prodQuantity)
         },{
           item_id: answer.id
         }], 
@@ -79,12 +80,12 @@ function runApp() {
           reRun();
         });
       } else {
-        console.log("Insufficient quantity!");
+        console.log("There isn't enough in stock!");
         reRun();
       }
     })
   })
-}
+}  
 
 // Checks if customer would like to purchase another item
 function reRun(){
@@ -96,7 +97,7 @@ function reRun(){
     }
   ]).then(function(answer) {
     if(answer.reply) {
-      runApp();
+      start();
     } else {
       console.log("Thanks for shopping Bamazon!");
       connection.end();
