@@ -33,7 +33,7 @@ function runSearch() {
   inquirer
     .prompt({
       name: "action",
-      type: "list",
+      type: "rawlist",
       message: "What would you like to do?",
       choices: [
         "View Products for Sale",
@@ -80,10 +80,10 @@ function productSearch() {
       runSearch();
     });
   }
-
+  
 // show low inventory products
 function lowInventorySearch() {
-  var query = "SELECT product_name FROM products GROUP BY products HAVING count(*) < 5";
+  var query = "SELECT product_name FROM products WHERE stock_quantity < 5";
   connection.query(query, function(err, res) {
     console.log("LOW INVENTORY" + "\n" + "====================================================");
     for (var i = 0; i < res.length; i++) {
