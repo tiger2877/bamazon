@@ -42,7 +42,7 @@ function start() {
     "SELECT * FROM products", function(err, res) {
     console.log("Welcome to Bamazon" + "\n" + "====================================================");
     for ( var i = 0; i < res.length; i++) {
-      console.log("ID: " + res[i].item_id + " || " + "Product: " + res[i].product_name + " || " + "Price: $" + res[i].price);
+      console.log("ID: " + res[i].id + " || " + "Product: " + res[i].product_name + " || " + "Price: $" + res[i].price);
     }
     console.log("---------------------------------------------------");
 
@@ -60,19 +60,19 @@ function start() {
     ])
     .then(function(answer) {
       var custProduct = (answer.id) - 1;
-      var prodQuantity = parseInt(answer.qty);
-      var total = parseFloat(((res[custProduct].price) * prodQuantity).toFixed(2));
+      var orderQuantity = parseInt(answer.qty);
+      var total = parseFloat(((res[custProduct].price) * orderQuantity).toFixed(2));
       
       // Check if quantity is sufficient
-      if(res[custProduct].stock_quantity >= prodQuantity) {
+      if(res[custProduct].stock_quantity >= orderQuantity) {
       
       // After purchase, update the quantity in products
       connection.query(
         "UPDATE products SET ? WHERE ?",
         [{
-          stock_quantity: (res[custProduct].stock_quantity - prodQuantity)
+          stock_quantity: (res[custProduct].stock_quantity - orderQuantity)
         },{
-          item_id: answer.id
+          id: answer.id
         }], 
         function(err, res){
           if(err) throw err;

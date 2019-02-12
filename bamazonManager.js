@@ -75,7 +75,9 @@ function productSearch() {
       if (err) throw err;
       // Log all results of the SELECT statement
       console.log("PRODUCTS FOR SALE" + "\n" + "====================================================");
-      console.log(res);
+      for (var i = 0; i < res.length; i++) {
+        console.log("ID: " + res[i].id + " || " + "Product: " + res[i].product_name + " || " + "Price: $" + res[i].price + " || " + "Quantity: " + res[i].stock_quantity);
+      }
       console.log("---------------------------------------------------");
       runSearch();
     });
@@ -115,7 +117,7 @@ function addInventory() {
             message: "What product would you like to add inventory to?"
           },
           {
-            name: "amt",
+            name: "quantity",
             type: "input",
             message: "How much would you like to add?"
           }
@@ -132,7 +134,7 @@ function addInventory() {
             "UPDATE products SET ? WHERE ?",
             [
               {
-                stock_quantity: chosenItem + parseInt(answer.amt)
+                stock_quantity: chosenItem + parseInt(answer.quantity)
               },
               {
                 product_name: answer.choice
