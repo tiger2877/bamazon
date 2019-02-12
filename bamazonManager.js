@@ -74,8 +74,10 @@ function productSearch() {
     connection.query("SELECT * FROM products", function(err, res) {
       if (err) throw err;
       // Log all results of the SELECT statement
+      console.log("PRODUCTS FOR SALE" + "\n" + "====================================================");
       console.log(res);
-      connection.end();
+      console.log("---------------------------------------------------");
+      runSearch();
     });
   }
 
@@ -83,9 +85,11 @@ function productSearch() {
 function lowInventorySearch() {
   var query = "SELECT product_name FROM products GROUP BY products HAVING count(*) < 5";
   connection.query(query, function(err, res) {
+    console.log("LOW INVENTORY" + "\n" + "====================================================");
     for (var i = 0; i < res.length; i++) {
-      console.log(res[i].product_name);
+      console.log("Product: " + res[i].product_name + " || " + "Quantity: " + res[i].stock_quantity);
     }
+    console.log("---------------------------------------------------");
     runSearch();
   });
 }
@@ -164,12 +168,24 @@ function addNewProduct() {
           {
             name: "price",
             type: "input",
-            message: "How much would you like to sell this item for?"
+            message: "How much would you like to sell this item for?",
+            validate: function(value) {
+                if (isNaN(value) === false) {
+                  return true;
+                }
+                return false;
+              }
           },
           {
             name: "quantity",
             type: "input",
-            message: "How many would you like to store?"
+            message: "How many would you like to store?",
+            validate: function(value) {
+                if (isNaN(value) === false) {
+                  return true;
+                }
+                return false;
+              }
           }
         ])  
         .then(function(answer) {
@@ -184,8 +200,10 @@ function addNewProduct() {
               },
               function(err) {
                 if (err) throw err;
+                console.log("---------------------------------------------------");
                 console.log("Your new item was added successfully!");
-                
+                console.log("---------------------------------------------------");
+                runSearch();
               }
             );
           });
