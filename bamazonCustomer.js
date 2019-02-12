@@ -66,7 +66,7 @@ function runApp() {
           reRun();
         });
       } else {
-        console.log("There isn't enough in stock!");
+        console.log("Insufficient quantity!");
         reRun();
       }
     })
