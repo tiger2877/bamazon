@@ -16,11 +16,10 @@ CREATE TABLE products(
 );
 
 -- Creates the table "departments" within bamazon_db --
-CREATE TABLE products(
+CREATE TABLE departments(
   dept_id INT NOT NULL AUTO_INCREMENT,
-  product_name VARCHAR(100) NOT NULL,
   dept_name VARCHAR(45) NOT NULL,
-  price DECIMAL(10,2) NULL,
-  stock_quantity INT NULL,
-  PRIMARY KEY (id)
+  over_head_costs INT NULL,
+  product_sales INT NULL,
+  PRIMARY KEY (dept_id)
 );

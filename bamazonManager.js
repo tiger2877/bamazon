@@ -1,7 +1,7 @@
   /*-- bamazon Manager -->
   <!-- =========================================================================== -->
   <!-- List a set of menu options:                                                 -->
-  <!-- View Products for Sale: ist every available item:                           -->
+  <!-- View Products for Sale: list every available item                           -->
   <!-- View Low Inventory: list all items with an inventory count lower than five  -->
   <!-- Add to Inventory: display a prompt that will let the manager "add more"     -->
   <!-- Add New Product:  add a completely new product to the store                 -->
