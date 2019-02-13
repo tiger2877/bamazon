@@ -40,7 +40,7 @@ function runSearch() {
         "View Low Inventory",
         "Add to Inventory",
         "Add New Product",
-        "exit"
+        "Exit"
       ]
     })
     .then(function(answer) {
@@ -61,7 +61,7 @@ function runSearch() {
         addNewProduct();
         break;
           
-      case "exit":
+      case "Exit":
         connection.end();
         break;
       }
