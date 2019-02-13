@@ -11,7 +11,7 @@
   var mysql = require("mysql");
   var inquirer = require("inquirer");
   var Table = require('cli-table');
-  
+
   var connection = mysql.createConnection({
     host: "localhost",
   
@@ -80,53 +80,23 @@
       // prompt for info about the item to be added to the store
       inquirer
         .prompt([
-          {
-              name: "item",
-              type: "input",
-              message: "What is the item you would like to add to the store?"    
-            },
             {
               name: "department",
               type: "input",
-              message: "What department would you like to place your new item in?"    
-            },
-            {
-              name: "price",
-              type: "input",
-              message: "How much would you like to sell this item for?",
-              validate: function(value) {
-                  if (isNaN(value) === false) {
-                    return true;
-                  }
-                  return false;
-                }
-            },
-            {
-              name: "quantity",
-              type: "input",
-              message: "How many would you like to store?",
-              validate: function(value) {
-                  if (isNaN(value) === false) {
-                    return true;
-                  }
-                  return false;
-                }
+              message: "What department would you like to add?"    
             }
           ])  
           .then(function(answer) {
               // when finished prompting, insert a new item into the db with that info
               connection.query(
-                "INSERT INTO products SET ?",
+                "INSERT INTO departments SET ?",
                 {
-                  product_name: answer.item,
-                  dept_name: answer.department,
-                  price: answer.price,
-                  stock_quantity: answer.quantity
+                    dept_name: answer.department,
                 },
                 function(err) {
                   if (err) throw err;
                   console.log("---------------------------------------------------");
-                  console.log("Your new item was added successfully!");
+                  console.log("Your new department was added successfully!");
                   console.log("---------------------------------------------------");
                   runSearch();
                 }
