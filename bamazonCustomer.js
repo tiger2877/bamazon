@@ -31,21 +31,59 @@ var connection = mysql.createConnection({
 // connect to the mysql server and sql database
 connection.connect(function(err) {
   if (err) throw err;
-
-  // Function to start the app
-  start();
+  runSearch();
 });
 
-// function which lists all the products and prompts for a purchase
-function start() {
-  connection.query(
-    "SELECT * FROM products", function(err, res) {
-    console.log("Welcome to Bamazon" + "\n" + "====================================================");
-    for ( var i = 0; i < res.length; i++) {
-      console.log("ID: " + res[i].item_id + " || " + "Product: " + res[i].product_name + " || " + "Price: $" + res[i].price);
-    }
-    console.log("---------------------------------------------------");
+function runSearch() {
+  inquirer
+    .prompt({
+      name: "action",
+      type: "rawlist",
+      message: "What would you like to do?",
+      choices: [
+        "View All Products Available for Sale",
+        "Buy an item",
+        "exit"
+      ]
+    })
+    .then(function(answer) {
+      switch (answer.action) {
+      case "View All Products Available for Sale":
+        productSearch();
+        break;
 
+      case "Buy an item":
+        buy();
+        break;
+          
+      case "exit":
+        connection.end();
+        break;
+      }
+    });
+}
+
+  // show all products
+  function productSearch() {
+    console.log("Selecting all products...\n");
+    connection.query("SELECT * FROM products", function(err, res) {
+      if (err) throw err;
+      // Log all results of the SELECT statement
+      console.log("PRODUCTS FOR SALE" + "\n" + "====================================================");
+      for (var i = 0; i < res.length; i++) {
+        console.log("ID: " + res[i].item_id + " || " + "Product: " + res[i].product_name + " || " + "Price: $" + res[i].price + " || " + "Quantity: " + res[i].stock_quantity);
+      }
+      console.log("---------------------------------------------------");
+      runSearch();
+    });
+  }
+
+  // function which lists all the products and prompts for a purchase
+  function buy() {
+
+    connection.query("SELECT * FROM products", function(err, res) {
+      if (err) throw err;
+  
     inquirer.prompt([
       {
         type: "input",
@@ -59,13 +97,14 @@ function start() {
       }
     ])
     .then(function(answer) {
+      
       var custProduct = (answer.id) - 1;
       var orderQuantity = parseInt(answer.qty);
       var total = parseFloat(((res[custProduct].price) * orderQuantity).toFixed(2));
-      
+
       // Check if quantity is sufficient
       if(res[custProduct].stock_quantity >= orderQuantity) {
-      
+        
       // After purchase, update the quantity in products
       connection.query(
         "UPDATE products SET ? WHERE ?",
@@ -75,11 +114,14 @@ function start() {
           item_id: answer.id
         }], 
         function(err, res){
-          if(err) throw err;
+          if (err) throw err;
           console.log("Your total is $" + total + ". Thanks for your order!");
           reRun();
         });
-      } else {
+
+        } 
+        else 
+        {
         console.log("There isn't enough in stock!");
         reRun();
       }

@@ -10,7 +10,6 @@
 
   var mysql = require("mysql");
   var inquirer = require("inquirer");
-  var Table = require('cli-table');
 
   var connection = mysql.createConnection({
     host: "localhost",
@@ -62,13 +61,13 @@
   
   // show all products
   function productSearch() {
-      console.log("Selecting all products...\n");
-      connection.query("SELECT * FROM products", function(err, res) {
+      console.log("Selecting all departments...\n");
+      connection.query("SELECT * FROM departments", function(err, res) {
         if (err) throw err;
         // Log all results of the SELECT statement
-        console.log("PRODUCTS FOR SALE" + "\n" + "====================================================");
+        console.log("TOTAL SALES BY DEPARMENT" + "\n" + "====================================================");
         for (var i = 0; i < res.length; i++) {
-          console.log("ID: " + res[i].item_id + " || " + "Product: " + res[i].product_name + " || " + "Price: $" + res[i].price + " || " + "Quantity: " + res[i].stock_quantity);
+          console.log("Department ID: " + res[i].dept_id + " || " + "Department Name: " + res[i].dept_name + " || " + "Overhead Cost: $" + res[i].over_head_costs + " || " + "Product Sales: " + res[i].product_sales+ " || " + "Total Profit: " + res[i].product_sales);
         }
         console.log("---------------------------------------------------");
         runSearch();
