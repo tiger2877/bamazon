@@ -80,8 +80,8 @@ function runSearch() {
 
   // function which lists all the products and prompts for a purchase
   function buy() {
-
-    connection.query("SELECT * FROM products", function(err, res) {
+ 
+    connection.query("SELECT * FROM products INNER JOIN departments ON (products.dept_name = departments.dept_name) ", function(err, res) {
       if (err) throw err;
   
     inquirer.prompt([
