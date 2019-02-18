@@ -104,18 +104,22 @@ function runSearch() {
 
       // Check if quantity is sufficient
       if(res[custProduct].stock_quantity >= orderQuantity) {
-        
+      
+      var query = "UPDATE products, departments SET ? WHERE ?"
       // After purchase, update the quantity in products
       connection.query(
-        "UPDATE products SET ? WHERE ?",
+        query,
         [{
-          stock_quantity: (res[custProduct].stock_quantity - orderQuantity)
+          stock_quantity: (res[custProduct].stock_quantity - orderQuantity),
+          product_sales: total
         },{
           item_id: answer.id
+
         }], 
         function(err, res){
           if (err) throw err;
           console.log("Your total is $" + total + ". Thanks for your order!");
+   
           reRun();
         });
 
