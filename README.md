@@ -10,8 +10,12 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 NPM packages used
-MySQL
-Inquirer
+
+| Node APM | Description |
+| --- | --- |
+| MySQL | https://www.npmjs.com/package/mysql|
+| Inquirer | https://www.npmjs.com/package/inquirer|
+
 
 - - -
 
