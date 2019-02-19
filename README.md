@@ -85,10 +85,10 @@ Node terminal
 
 This app will start with a menu asking the manager to: view products for sale, view all low inventory, add to inventory or add a new product to the database
 
-   * view products for sale
-   
-   * view all low inventory
-   
-   * add to inventory or add a new product to the database
+   * View Product Sales by Department
+```   
+    Display the `total_profit` column should be calculated on the fly using the difference between `over_head_costs` and `product_sales`. `total_profit` should not be stored in any database.
+```   
+   * Create New Department
 
 - - -
