@@ -19,10 +19,14 @@ NPM packages used for this project:
 - - -
 
 ### Screenshots
+```
+mySQL tables
+```
 * `Product Table`
 ![producttable](https://github.com/tiger2877/bamazon/blob/master/producttable.jpg)
 * `Department Table`
 ![departmenttable](https://github.com/tiger2877/bamazon/blob/master/depttable.jpg)
+
 * `Customer View`
 ![customerview](https://github.com/tiger2877/bamazon/blob/master/bamazoncustomer1.jpg)
 * `Manager View 1`
