@@ -16,6 +16,20 @@ NPM packages used for this project:
 | MySQL | https://www.npmjs.com/package/mysql|
 | Inquirer | https://www.npmjs.com/package/inquirer|
 
+- - -
+
+### Screenshots
+
+* `Customer View`
+![customerview](https://github.com/tiger2877/bamazon/blob/master/bamazoncustomer1.jpg)
+* `Manager View 1`
+![managerview1](https://github.com/tiger2877/bamazon/blob/master/bamazonmanager1.jpg)
+* `Manager View 2`
+![managerview2](https://github.com/tiger2877/bamazon/blob/master/bamazonmanager2.jpg)
+* `Supervisor View 1`
+![supervisorview1](https://github.com/tiger2877/bamazon/blob/master/bamazonsupervisor1.jpg)
+* `Supervisor View 2` 
+![supervisorview2](https://github.com/tiger2877/bamazon/blob/master/bamazonsupervisor2.jpg)
 
 - - -
 
