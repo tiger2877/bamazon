@@ -30,4 +30,6 @@ VALUES ("Toys & Games",500, 1000),
     ("Electronics",900, 4500),
     ("Office Electronics & Supplies",300, 2500);
 
-
+USE bamazon_db;
+DELETE FROM departments;
+  

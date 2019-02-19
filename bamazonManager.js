@@ -85,8 +85,7 @@ function productSearch() {
   
 // show low inventory products
 function lowInventorySearch() {
-  var query = "SELECT product_name FROM products WHERE stock_quantity < 5";
-  connection.query(query, function(err, res) {
+  connection.query("SELECT * FROM products WHERE stock_quantity < 5", function(err, res) {
     console.log("LOW INVENTORY" + "\n" + "====================================================");
     for (var i = 0; i < res.length; i++) {
       console.log("Product: " + res[i].product_name + " || " + "Quantity: " + res[i].stock_quantity);
