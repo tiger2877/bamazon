@@ -25,6 +25,7 @@ mySQL tables
 * `Product Table`
 ![producttable](https://github.com/tiger2877/bamazon/blob/master/producttable.jpg)
 * `Department Table`
+
 ![departmenttable](https://github.com/tiger2877/bamazon/blob/master/depttable.jpg)
 
 * `Customer View`
