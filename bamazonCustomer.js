@@ -143,7 +143,7 @@ function reRun(){
     }
   ]).then(function(answer) {
     if(answer.reply) {
-      start();
+      buy();
     } 
     else 
     {
