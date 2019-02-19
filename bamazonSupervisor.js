@@ -62,12 +62,15 @@
   // show all products
   function productSearch() {
       console.log("Selecting all departments...\n");
-      connection.query("SELECT * FROM departments", function(err, res) {
+
+      var query = "SELECT *, product_sales - over_head_costs AS total_profit FROM departments"
+
+      connection.query(query, function(err, res) {
         if (err) throw err;
         // Log all results of the SELECT statement
         console.log("TOTAL SALES BY DEPARMENT" + "\n" + "====================================================");
         for (var i = 0; i < res.length; i++) {
-          console.log("Department ID: " + res[i].dept_id + " || " + "Department Name: " + res[i].dept_name + " || " + "Overhead Cost: $" + res[i].over_head_costs + " || " + "Product Sales: " + res[i].product_sales+ " || " + "Total Profit: " + res[i].product_sales);
+          console.log("Department ID: " + res[i].dept_id + " || " + "Department Name: " + res[i].dept_name + " || " + "Overhead Cost: $" + res[i].over_head_costs + " || " + "Product Sales: " + res[i].product_sales+ " || " + "Total Profit: " + res[i].total_profit);
         }
         console.log("---------------------------------------------------");
         runSearch();
