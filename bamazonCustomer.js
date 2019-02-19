@@ -81,7 +81,7 @@ function runSearch() {
   // function which lists all the products and prompts for a purchase
   function buy() {
  
-    connection.query("SELECT * FROM products INNER JOIN departments ON (products.dept_name = departments.dept_name) ", function(err, res) {
+    connection.query("SELECT * FROM products", function(err, res) {
       if (err) throw err;
   
     inquirer.prompt([
@@ -105,7 +105,7 @@ function runSearch() {
       // Check if quantity is sufficient
       if(res[custProduct].stock_quantity >= orderQuantity) {
       
-      var query = "UPDATE products, departments SET ? WHERE ?"
+      var query = "UPDATE products INNER JOIN departments ON products.dept_name = departments.dept_name SET ? WHERE ?"
       // After purchase, update the quantity in products
       connection.query(
         query,
