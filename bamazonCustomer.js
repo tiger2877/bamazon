@@ -105,8 +105,9 @@ function runSearch() {
       // Check if quantity is sufficient
       if(res[custProduct].stock_quantity >= orderQuantity) {
       
+      // After purchase, update the quantity in products & product sales in departments table
       var query = "UPDATE products INNER JOIN departments ON products.dept_name = departments.dept_name SET ? WHERE ?"
-      // After purchase, update the quantity in products
+     
       connection.query(
         query,
         [{
@@ -114,12 +115,11 @@ function runSearch() {
           product_sales: total
         },{
           item_id: answer.id
-
         }], 
+
         function(err, res){
           if (err) throw err;
           console.log("Your total is $" + total + ". Thanks for your order!");
-   
           reRun();
         });
 
@@ -144,7 +144,9 @@ function reRun(){
   ]).then(function(answer) {
     if(answer.reply) {
       start();
-    } else {
+    } 
+    else 
+    {
       console.log("Thanks for shopping Bamazon!");
       connection.end();
     }

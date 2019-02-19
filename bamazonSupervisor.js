@@ -1,12 +1,12 @@
   /*-- bamazon Supervisor -->
-  <!-- =================================================== -->
-  <!-- List a set of menu options:                         -->
-  <!-- 1. View Product Sales by Department:                -->
-  <!--    * Display a summarized table                     -->
-  <!--    * Total_profit should be calculated on the fly:  -->
-  <!--      product_sales minus over_head_costs            -->
-  <!-- 2. Create New Department                            -->
-  <!-- =================================================== -->*/
+  <!-- =================================================================================== -->
+  <!-- List a set of menu options:                                                         -->
+  <!-- 1. View Product Sales by Department:                                                -->
+  <!--    * Display product sales which is updated whenever a customer buys a product      -->
+  <!--    * Display total profit using ALIAS                                               -->
+  <!--    * Insert dummy numbers for overhead costs for each dept                          -->
+  <!-- 2. Create New Department                                                            -->
+  <!-- =================================================================================== -->*/
 
   var mysql = require("mysql");
   var inquirer = require("inquirer");
