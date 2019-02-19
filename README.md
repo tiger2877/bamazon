@@ -83,7 +83,7 @@ Node terminal
 
 ### Supervisor View
 
-This app will start with a menu asking the manager to: view products for sale, view all low inventory, add to inventory or add a new product to the database
+This app will start with a menu asking the manager to: 
 
    * View Product Sales by Department
 ```   
