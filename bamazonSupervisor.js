@@ -63,7 +63,7 @@
   function productSearch() {
       console.log("Selecting all departments...\n");
 
-      var query = "SELECT *, product_sales - over_head_costs AS total_profit FROM departments"
+      var query = "SELECT *, product_sales - over_head_costs AS total_profit FROM departments GROUP BY dept_name ORDER BY dept_name"
 
       connection.query(query, function(err, res) {
         if (err) throw err;
