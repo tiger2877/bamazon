@@ -3,9 +3,10 @@
 ## Overview
 
 An Amazon-like storefront using Node.js and MySQL. The app will take in orders from customers and deplete stock from the store’s inventory.
-* [demo1](https://github.com/tiger2877/bamazon/blob/master/images/demo.gif)
-* [demo2](https://github.com/tiger2877/bamazon/blob/master/images/demo1.gif)
-* [demo3](https://github.com/tiger2877/bamazon/blob/master/images/demo2.gif)
+* [demo1](https://github.com/tiger2877/bamazon/blob/master/images/demo1.gif)
+* [demo2](https://github.com/tiger2877/bamazon/blob/master/images/demo2.gif)
+* [demo3](https://github.com/tiger2877/bamazon/blob/master/images/demo3.gif)
+* [demo4](https://github.com/tiger2877/bamazon/blob/master/images/demo4.gif)
 
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine.
