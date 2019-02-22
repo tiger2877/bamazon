@@ -23,10 +23,10 @@ NPM packages used for this project:
 mySQL tables
 ```
 * `Product Table`
-![producttable](https://github.com/tiger2877/bamazon/blob/master/producttable.jpg)
+![producttable](https://github.com/tiger2877/bamazon/blob/master/images/producttable.jpg)
 * `Department Table`
 
-![departmenttable](https://github.com/tiger2877/bamazon/blob/master/depttable.jpg)
+![departmenttable](https://github.com/tiger2877/bamazon/blob/master/images/depttable.jpg)
 
 ```
 Node terminal
