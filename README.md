@@ -32,15 +32,15 @@ mySQL tables
 Node terminal
 ```
 * `Customer View`
-![customerview](https://github.com/tiger2877/bamazon/blob/master/bamazoncustomer1.jpg)
+![customerview](https://github.com/tiger2877/bamazon/blob/master/images/bamazoncustomer1.jpg)
 * `Manager View 1`
-![managerview1](https://github.com/tiger2877/bamazon/blob/master/bamazonmanager1.jpg)
+![managerview1](https://github.com/tiger2877/bamazon/blob/master/images/bamazonmanager1.jpg)
 * `Manager View 2`
-![managerview2](https://github.com/tiger2877/bamazon/blob/master/bamazonmanager2.jpg)
+![managerview2](https://github.com/tiger2877/bamazon/blob/master/images/bamazonmanager2.jpg)
 * `Supervisor View 1`
-![supervisorview1](https://github.com/tiger2877/bamazon/blob/master/bamazonsupervisor1.jpg)
+![supervisorview1](https://github.com/tiger2877/bamazon/blob/master/images/bamazonsupervisor1.jpg)
 * `Supervisor View 2` 
-![supervisorview2](https://github.com/tiger2877/bamazon/blob/master/bamazonsupervisor2.jpg)
+![supervisorview2](https://github.com/tiger2877/bamazon/blob/master/images/bamazonsupervisor2.jpg)
 
 - - -
 
